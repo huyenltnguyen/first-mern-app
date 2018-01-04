@@ -1,10 +1,11 @@
+import config from './config';
 import express from 'express';
 import apiRouter from './api';
 import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
+import serverRender from './serverRender';
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 app.use(sassMiddleware({
@@ -12,15 +13,22 @@ app.use(sassMiddleware({
   dest: path.join(__dirname, 'public')
 }));
 
+
 app.get('/', (req, res) => {
-  res.render('index', {
-    content: '...',
-  });
+  serverRender()
+    .then(({ initialMarkup, initialData }) => {
+      res.render('index', {
+        initialMarkup,
+        initialData
+      });
+    })
+    .catch((err) => console.log(err));
+
 });
 
 app.use('/api', apiRouter);
 app.use(express.static('public'));
 
-app.listen(port, () => {
-  console.log(`App is running on ${port}`);
+app.listen(config.port, config.host, () => {
+  console.log(`App is running on ${config.port}`);
 });

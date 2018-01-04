@@ -1,15 +1,26 @@
+$border-color: #ccc;
+$bg-color: #eee;
+
 .ContestPreview {
+  border: 1px solid $border-color;
   margin: 1em;
-  border: 1px solid #ccc;
+
+  ul {
+    padding-left: 0;
+  }
+
+  li {
+    list-style-type: none;
+  }
 
   .category-name {
-    border-bottom: 1px solid #ccc;
-    padding: 0.25em 0.5em;
+    background-color: $bg-color;
+    border-bottom: 1px solid $border-color;
     font-weight: bold;
-    background-color: #eee;
+    padding: .25em .5em;
   }
 
   .contest-name {
-    padding: 0.5em;
+    padding: .5em;
   }
 }

@@ -57,13 +57,13 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _App = __webpack_require__(/*! ./components/App */ 184);
+	var _App = __webpack_require__(/*! ./components/App */ 210);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root')); // jshint ignore: start
+	_reactDom2.default.render(_react2.default.createElement(_App2.default, { initialContests: window.initialData.contests }), document.getElementById('root')); // jshint ignore: start
 
 /***/ }),
 /* 1 */
@@ -22302,7 +22302,33 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 3)))
 
 /***/ }),
-/* 184 */
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */
 /*!*******************************!*\
   !*** ./src/components/App.js ***!
   \*******************************/
@@ -22320,13 +22346,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _testData = __webpack_require__(/*! ../testData */ 185);
-	
-	var _Header = __webpack_require__(/*! ./Header */ 186);
+	var _Header = __webpack_require__(/*! ./Header */ 211);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _ContestPreview = __webpack_require__(/*! ./ContestPreview */ 189);
+	var _ContestPreview = __webpack_require__(/*! ./ContestPreview */ 214);
 	
 	var _ContestPreview2 = _interopRequireDefault(_ContestPreview);
 	
@@ -22348,19 +22372,23 @@
 			var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 	
 			_this.state = {
-				pageHeader: 'Naming Contests'
+				pageHeader: 'Naming Contests',
+				contests: _this.props.initialContests
 			};
 			return _this;
 		}
 	
 		_createClass(App, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {}
+		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
 					{ className: 'App text-center' },
 					_react2.default.createElement(_Header2.default, { message: this.state.pageHeader }),
-					_react2.default.createElement(_ContestPreview2.default, { contests: _testData.contests })
+					_react2.default.createElement(_ContestPreview2.default, { contests: this.state.contests })
 				);
 			}
 		}]);
@@ -22373,16 +22401,7 @@
 	exports.default = App;
 
 /***/ }),
-/* 185 */
-/*!***************************!*\
-  !*** ./src/testData.json ***!
-  \***************************/
-/***/ (function(module, exports) {
-
-	module.exports = {"contests":[{"id":1,"categoryName":"Business/Company","contestName":"Cognitive Building Bricks"},{"id":2,"categoryName":"Magazine/Newsletter","contestName":"Educating people about sustainable food production"},{"id":3,"categoryName":"Software Component","contestName":"Big Data Analytics for Cash Circulation"},{"id":4,"categoryName":"Website","contestName":"Free programming books"}]}
-
-/***/ }),
-/* 186 */
+/* 211 */
 /*!**********************************!*\
   !*** ./src/components/Header.js ***!
   \**********************************/
@@ -22398,7 +22417,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _propTypes = __webpack_require__(/*! prop-types */ 187);
+	var _propTypes = __webpack_require__(/*! prop-types */ 212);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
@@ -22422,7 +22441,7 @@
 	exports.default = Header;
 
 /***/ }),
-/* 187 */
+/* 212 */
 /*!*******************************!*\
   !*** ./~/prop-types/index.js ***!
   \*******************************/
@@ -22453,12 +22472,12 @@
 	} else {
 	  // By explicitly using `prop-types` you are opting into new production behavior.
 	  // http://fb.me/prop-types-in-prod
-	  module.exports = __webpack_require__(/*! ./factoryWithThrowingShims */ 188)();
+	  module.exports = __webpack_require__(/*! ./factoryWithThrowingShims */ 213)();
 	}
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../process/browser.js */ 3)))
 
 /***/ }),
-/* 188 */
+/* 213 */
 /*!**************************************************!*\
   !*** ./~/prop-types/factoryWithThrowingShims.js ***!
   \**************************************************/
@@ -22519,7 +22538,7 @@
 	};
 
 /***/ }),
-/* 189 */
+/* 214 */
 /*!******************************************!*\
   !*** ./src/components/ContestPreview.js ***!
   \******************************************/
@@ -22541,11 +22560,11 @@
 		return _react2.default.createElement(
 			'div',
 			{ className: 'ContestPreview' },
-			props.contests.map(function (contest) {
-				return _react2.default.createElement(
-					'ul',
-					null,
-					_react2.default.createElement(
+			_react2.default.createElement(
+				'ul',
+				null,
+				props.contests.map(function (contest) {
+					return _react2.default.createElement(
 						'li',
 						{ key: contest.id },
 						_react2.default.createElement(
@@ -22558,9 +22577,9 @@
 							{ className: 'contest-name' },
 							contest.contestName
 						)
-					)
-				);
-			})
+					);
+				})
+			)
 		);
 	}; // jshint ignore: start
 	exports.default = ContestPreview;
