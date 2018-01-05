@@ -1,17 +1,18 @@
 $border-color: #ccc;
 $bg-color: #eee;
 
-.ContestPreview {
+.ContestList {
   border: 1px solid $border-color;
   margin: 1em;
 
   ul {
     padding-left: 0;
   }
+}
 
-  li {
-    list-style-type: none;
-  }
+.ContestPreview {
+  cursor: pointer;
+  list-style-type: none;
 
   .category-name {
     background-color: $bg-color;

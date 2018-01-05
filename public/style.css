@@ -1,10 +1,12 @@
-.ContestPreview {
+.ContestList {
   border: 1px solid #ccc;
   margin: 1em; }
-  .ContestPreview ul {
+  .ContestList ul {
     padding-left: 0; }
-  .ContestPreview li {
-    list-style-type: none; }
+
+.ContestPreview {
+  cursor: pointer;
+  list-style-type: none; }
   .ContestPreview .category-name {
     background-color: #eee;
     border-bottom: 1px solid #ccc;
