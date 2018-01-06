@@ -5,17 +5,17 @@ import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
 import serverRender from './serverRender';
 
-const app = express();
+const server = express();
 
-app.set('view engine', 'ejs');
-app.use(sassMiddleware({
+server.set('view engine', 'ejs');
+server.use(sassMiddleware({
   src: path.join(__dirname, 'sass'),
   dest: path.join(__dirname, 'public')
 }));
 
 
-app.get('/', (req, res) => {
-  serverRender()
+server.get(['/', '/contest/:contestId'], (req, res) => {
+  serverRender(req.params.contestId)
     .then(({ initialMarkup, initialData }) => {
       res.render('index', {
         initialMarkup,
@@ -26,9 +26,9 @@ app.get('/', (req, res) => {
 
 });
 
-app.use('/api', apiRouter);
-app.use(express.static('public'));
+server.use('/api', apiRouter);
+server.use(express.static('public'));
 
-app.listen(config.port, config.host, () => {
+server.listen(config.port, config.host, () => {
   console.log(`App is running on ${config.port}`);
 });

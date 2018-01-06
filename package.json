@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack -wd",
-    "server": "nodemon --exec babel-node app.js --ignore public/",
+    "server": "nodemon --exec babel-node server.js --ignore public/",
     "start-dev": "concurrently --kill-others \"npm run start\" \"npm run server\""
   },
   "repository": {

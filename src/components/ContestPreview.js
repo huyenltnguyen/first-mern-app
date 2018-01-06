@@ -22,6 +22,6 @@ ContestPreview.propTypes = {
 	categoryName: PropTypes.string.isRequired,
 	contestName: PropTypes.string.isRequired,
 	onContestClick: PropTypes.func.isRequired
-}
+};
 
 export default ContestPreview;
