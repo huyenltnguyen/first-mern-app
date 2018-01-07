@@ -39,6 +39,22 @@ class App extends React.Component {
 			.catch((err) => console.log(err));
 	}
 
+	fetchContestList = () => {
+		pushState(
+			{ currentContestId: null },
+			'/'
+		);
+
+		api.fetchContestList()
+			.then((contests) => {
+				this.setState({
+					currentContestId: null,
+					contests
+				});
+			})
+			.catch((err) => console.log(err));
+	}
+
 	pageHeader = () => {
 		return this.state.currentContestId ? this.getCurrentContest().contestName : 'Naming Contests';
 	}
@@ -49,7 +65,9 @@ class App extends React.Component {
 
 	currentContent = () => {
 		if (this.state.currentContestId) {
-			return <ContestDetail { ...this.getCurrentContest() }/>
+			return <ContestDetail
+							onContestListClick={ this.fetchContestList }
+							{ ...this.getCurrentContest() } />
 		}
 
 		return (
@@ -57,6 +75,22 @@ class App extends React.Component {
 				onContestClick={ this.fetchContest }
 				contests={ this.state.contests } />
 		);
+	}
+
+	onPopState = (handler) => {
+		window.onpopstate = handler;
+	}
+
+	componentDidMount() {
+		this.onPopState((event) => {
+			this.setState({
+				currentContestId: (event.state || {}).currentContestId
+			});
+		});
+	}
+
+	componentWillUnmount() {
+		this.onPopState(null);
 	}
 
 	render() {

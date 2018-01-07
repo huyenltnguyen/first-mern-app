@@ -14,3 +14,6 @@
     padding: .25em .5em; }
   .ContestPreview .contest-name {
     padding: .5em; }
+
+.home-link {
+  cursor: pointer; }

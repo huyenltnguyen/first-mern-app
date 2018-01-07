@@ -1,22 +1,42 @@
 import express from 'express';
-import data from '../src/testData';
+import { MongoClient } from 'mongodb';
+import assert from 'assert';
+import config from '../config';
+
+let mdb;
+MongoClient.connect(config.mongodbUri, (err, db) => {
+	assert.equal(null, err);
+	mdb = db;
+});
 
 const router = express.Router();
-const contests = data.contests.reduce((obj, contest) => {
-	obj[contest.id] = contest;
-	return obj;
-}, {});
 
 router.get('/contests', (req, res) => {
-  res.send({
-  	contests: contests
-  });
+	let contests = {};
+	mdb.collection('contests').find({})
+		.project({
+			id: 1,
+			categoryName: 1,
+			contestName: 1
+		})
+		.each((err, contest) => {
+			assert.equal(null, err);
+
+			// if there is no contest to process
+			if (!contest) {
+				res.send({ contests });
+				return;
+			}
+
+			contests[contest.id] = contest;
+		});
 });
 
 router.get('/contests/:contestId', (req, res) => {
-	let contest = contests[req.params.contestId];
-	contest.description = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe natus eligendi ab aliquid velit praesentium error quis veniam nulla repellat laborum odit voluptatibus vero fugit est, eaque cumque. Repellat, hic.';
-	res.send(contest);
+	mdb.collection('contests')
+		.findOne({ id: Number(req.params.contestId) })
+		.then((contest) => res.send(contest))
+		.catch((err) => console.log(err));
 });
 
 export default router;

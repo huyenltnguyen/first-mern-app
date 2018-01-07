@@ -22322,11 +22322,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _propTypes = __webpack_require__(/*! prop-types */ 186);
+	var _propTypes = __webpack_require__(/*! prop-types */ 185);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _Header = __webpack_require__(/*! ./Header */ 185);
+	var _Header = __webpack_require__(/*! ./Header */ 187);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
@@ -22380,6 +22380,19 @@
 				});
 			};
 	
+			_this.fetchContestList = function () {
+				pushState({ currentContestId: null }, '/');
+	
+				api.fetchContestList().then(function (contests) {
+					_this.setState({
+						currentContestId: null,
+						contests: contests
+					});
+				}).catch(function (err) {
+					return console.log(err);
+				});
+			};
+	
 			_this.pageHeader = function () {
 				return _this.state.currentContestId ? _this.getCurrentContest().contestName : 'Naming Contests';
 			};
@@ -22390,7 +22403,9 @@
 	
 			_this.currentContent = function () {
 				if (_this.state.currentContestId) {
-					return _react2.default.createElement(_ContestDetail2.default, _this.getCurrentContest());
+					return _react2.default.createElement(_ContestDetail2.default, _extends({
+						onContestListClick: _this.fetchContestList
+					}, _this.getCurrentContest()));
 				}
 	
 				return _react2.default.createElement(_ContestList2.default, {
@@ -22398,11 +22413,31 @@
 					contests: _this.state.contests });
 			};
 	
+			_this.onPopState = function (handler) {
+				window.onpopstate = handler;
+			};
+	
 			_this.state = _this.props.initialData;
 			return _this;
 		}
 	
 		_createClass(App, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var _this2 = this;
+	
+				this.onPopState(function (event) {
+					_this2.setState({
+						currentContestId: (event.state || {}).currentContestId
+					});
+				});
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				this.onPopState(null);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
@@ -22426,46 +22461,6 @@
 
 /***/ }),
 /* 185 */
-/*!**********************************!*\
-  !*** ./src/components/Header.js ***!
-  \**********************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(/*! prop-types */ 186);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// jshint ignore: start
-	var Header = function Header(_ref) {
-		var message = _ref.message;
-	
-		return _react2.default.createElement(
-			'h2',
-			{ className: 'Header' },
-			message
-		);
-	};
-	
-	Header.propTypes = {
-		message: _propTypes2.default.string
-	};
-	
-	exports.default = Header;
-
-/***/ }),
-/* 186 */
 /*!*******************************!*\
   !*** ./~/prop-types/index.js ***!
   \*******************************/
@@ -22496,12 +22491,12 @@
 	} else {
 	  // By explicitly using `prop-types` you are opting into new production behavior.
 	  // http://fb.me/prop-types-in-prod
-	  module.exports = __webpack_require__(/*! ./factoryWithThrowingShims */ 187)();
+	  module.exports = __webpack_require__(/*! ./factoryWithThrowingShims */ 186)();
 	}
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../process/browser.js */ 3)))
 
 /***/ }),
-/* 187 */
+/* 186 */
 /*!**************************************************!*\
   !*** ./~/prop-types/factoryWithThrowingShims.js ***!
   \**************************************************/
@@ -22562,6 +22557,46 @@
 	};
 
 /***/ }),
+/* 187 */
+/*!**********************************!*\
+  !*** ./src/components/Header.js ***!
+  \**********************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 185);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// jshint ignore: start
+	var Header = function Header(_ref) {
+		var message = _ref.message;
+	
+		return _react2.default.createElement(
+			'h2',
+			{ className: 'Header' },
+			message
+		);
+	};
+	
+	Header.propTypes = {
+		message: _propTypes2.default.string
+	};
+	
+	exports.default = Header;
+
+/***/ }),
 /* 188 */
 /*!***************************************!*\
   !*** ./src/components/ContestList.js ***!
@@ -22578,7 +22613,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _propTypes = __webpack_require__(/*! prop-types */ 186);
+	var _propTypes = __webpack_require__(/*! prop-types */ 185);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
@@ -22636,7 +22671,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _propTypes = __webpack_require__(/*! prop-types */ 186);
+	var _propTypes = __webpack_require__(/*! prop-types */ 185);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
@@ -22719,7 +22754,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _propTypes = __webpack_require__(/*! prop-types */ 186);
+	var _propTypes = __webpack_require__(/*! prop-types */ 185);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
@@ -22745,9 +22780,18 @@
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
-					'h2',
-					null,
-					this.props.description
+					'div',
+					{ className: 'ContestDetail' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'contest-description' },
+						this.props.description
+					),
+					_react2.default.createElement(
+						'a',
+						{ className: 'home-link', onClick: this.props.onContestListClick },
+						'Contest List'
+					)
 				);
 			}
 		}]);
@@ -22759,7 +22803,8 @@
 		id: _propTypes2.default.number,
 		categoryName: _propTypes2.default.string,
 		contestName: _propTypes2.default.string,
-		description: _propTypes2.default.string
+		description: _propTypes2.default.string,
+		onContestListClick: _propTypes2.default.func
 	};
 	
 	exports.default = ContestDetail;
@@ -22776,7 +22821,7 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.fetchContest = undefined;
+	exports.fetchContestList = exports.fetchContest = undefined;
 	
 	var _axios = __webpack_require__(/*! axios */ 192);
 	
@@ -22787,6 +22832,14 @@
 	var fetchContest = exports.fetchContest = function fetchContest(contestId) {
 		return _axios2.default.get('/api/contests/' + contestId).then(function (res) {
 			return res.data;
+		}).catch(function (err) {
+			return console.log(err);
+		});
+	};
+	
+	var fetchContestList = exports.fetchContestList = function fetchContestList() {
+		return _axios2.default.get('/api/contests').then(function (res) {
+			return res.data.contests;
 		}).catch(function (err) {
 			return console.log(err);
 		});
