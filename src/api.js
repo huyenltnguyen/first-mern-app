@@ -11,3 +11,9 @@ export const fetchContestList = () => {
 		.then((res) => res.data.contests)
 		.catch((err) => console.log(err));
 };
+
+export const fetchNames = (nameIds) => {
+	return axios.get(`/api/names/${nameIds.join(',')}`)
+		.then((res) => res.data.names)
+		.catch((err) => console.log(err));
+};

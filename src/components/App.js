@@ -29,10 +29,10 @@ class App extends React.Component {
 		api.fetchContest(contestId)
 			.then((contest) => {
 				this.setState({
-					currentContestId: contest.id,
+					currentContestId: contest._id,
 					contests: {
 						...this.state.contests,
-						[contest.id]: contest
+						[contest._id]: contest
 					}
 				});
 			})
@@ -67,6 +67,8 @@ class App extends React.Component {
 		if (this.state.currentContestId) {
 			return <ContestDetail
 							onContestListClick={ this.fetchContestList }
+							fetchNames={ this.fetchNames }
+							lookupName={ this.lookupName }
 							{ ...this.getCurrentContest() } />
 		}
 
@@ -79,6 +81,30 @@ class App extends React.Component {
 
 	onPopState = (handler) => {
 		window.onpopstate = handler;
+	}
+
+	fetchNames = (nameIds) => {
+		if (nameIds.length === 0) {
+			return;
+		}
+
+		api.fetchNames(nameIds)
+			.then((names) => {
+				this.setState({
+					names
+				});
+			})
+			.catch((err) => console.log(err));
+	}
+
+	lookupName = (nameId) => {
+		if (!this.state.names || !this.state.names[nameId]) {
+			return ({
+				name: '...'
+			});
+		}
+
+		return this.state.names[nameId];
 	}
 
 	componentDidMount() {

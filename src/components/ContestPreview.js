@@ -18,7 +18,7 @@ class ContestPreview extends React.Component {
 }
 
 ContestPreview.propTypes = {
-	id: PropTypes.number.isRequired,
+	id: PropTypes.string.isRequired,
 	categoryName: PropTypes.string.isRequired,
 	contestName: PropTypes.string.isRequired,
 	onContestClick: PropTypes.func.isRequired

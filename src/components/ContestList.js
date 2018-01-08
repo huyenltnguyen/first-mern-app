@@ -13,8 +13,8 @@ const ContestList = (props) => {
 						const contest = contests[contestId];
 						return (
 							<ContestPreview
-								key={ contest.id }
-								id={ contest.id }
+								key={ contest._id }
+								id={ contest._id }
 								categoryName={ contest.categoryName }
 								contestName={ contest.contestName }
 								onContestClick={ props.onContestClick } />

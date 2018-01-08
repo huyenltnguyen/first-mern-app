@@ -22,7 +22,10 @@ server.get(['/', '/contest/:contestId'], (req, res) => {
         initialData
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      res.status(404).send('Bad Request');
+    });
 
 });
 
